@@ -42,24 +42,40 @@ It does not matter what you leave beyond the returned k (hence they are undersco
 */
 
 // First solution 5 ms Beats 22.39%
+//class Solution {
+//    fun removeDuplicates(nums: IntArray): Int {
+//        val expectedNums: MutableList<Int> = mutableListOf()
+//        for (i in nums.indices) {
+//            if (expectedNums.contains(nums[i]).not()) {
+//                expectedNums.add(nums[i])
+//            }
+//        }
+//
+//        for (i in expectedNums.indices) {
+//            nums[i] = expectedNums[i]
+//        }
+//        return expectedNums.size
+//    }
+//}
+
+// Best solution 1 ms Beats 100%
 class Solution {
     fun removeDuplicates(nums: IntArray): Int {
-        val expectedNums: MutableList<Int> = mutableListOf()
-        for (i in nums.indices) {
-            if (expectedNums.contains(nums[i]).not()) {
-                expectedNums.add(nums[i])
+        if (nums.isEmpty()) return 0
+
+        var uniqueIndex = 0
+        for (i in 1 until nums.size) {
+            if (nums[i] != nums[uniqueIndex]) {
+                uniqueIndex++
+                nums[uniqueIndex] = nums[i]
             }
         }
-
-        for (i in expectedNums.indices) {
-            nums[i] = expectedNums[i]
-        }
-        return expectedNums.size
+        return uniqueIndex + 1
     }
 }
 
 fun main() {
     val solution = Solution()
-    val nums = intArrayOf(1, 1)
+    val nums = intArrayOf(0,0,1,1,1,2,2,3,3,4)
     println(solution.removeDuplicates(nums))
 }
